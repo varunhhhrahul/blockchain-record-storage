@@ -94,25 +94,25 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Global variables
-app.use(function (req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.locals.success_msg = req.flash('success_msg');
+//   res.locals.error_msg = req.flash('error_msg');
+//   res.locals.error = req.flash('error');
+//   next();
+// });
 
-app.get('/', (req, res) => res.render('index'));
-app.get('/verify', (req, res) => {
-  const queryObject = url.parse(req.url,true).query;
-  //console.log(queryObject.address)
-  res.render('verify-address',{address: queryObject.address})});
-app.get('/qrscanner', (req, res) => res.render('qrscanner'));
-app.get('/contactUs', (req, res) => res.render('contactUs'));
-// Mount routers
-app.use('/auth', authFrontend);
-app.use('/users', userFrontend);
-app.use('/hospitals', hospitalFrontend);
-app.use('/admin', adminFrontend);
+// app.get('/', (req, res) => res.render('index'));
+// app.get('/verify', (req, res) => {
+//   const queryObject = url.parse(req.url,true).query;
+//   //console.log(queryObject.address)
+//   res.render('verify-address',{address: queryObject.address})});
+// app.get('/qrscanner', (req, res) => res.render('qrscanner'));
+// app.get('/contactUs', (req, res) => res.render('contactUs'));
+// // Mount routers
+// app.use('/auth', authFrontend);
+// app.use('/users', userFrontend);
+// app.use('/hospitals', hospitalFrontend);
+// app.use('/admin', adminFrontend);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/hospitals', hopsitals);
 app.use('/api/v1/pdrequests', pdRequests);
