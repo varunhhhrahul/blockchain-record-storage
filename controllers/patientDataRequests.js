@@ -115,14 +115,12 @@ exports.deletePatientDataRequest = asyncHandler(async (req, res, next) => {
   await pdrequest.remove();
   res.status(200).json({
     success: true,
-    data: {}
+    data: {},
   });
 });
 
 exports.addDataToSheet = asyncHandler(async (req, res, next) => {
-
   // let pdrequest = await PatientDataRequest.findById(req.params.id).populate('hospital').populate('user');
-
   // const client = new google.auth.JWT(
   //   keys.client_email,
   //   undefined,
@@ -130,9 +128,7 @@ exports.addDataToSheet = asyncHandler(async (req, res, next) => {
   //   ['https://www.googleapis.com/auth/spreadsheets']
   // );
   // const sheets = google.sheets({ version: 'v4', auth: client });
-
   // const {_id, hospital,user,createdAt} = pdrequest[0];
-
   // const requestParams = {
   //   spreadsheetId: '1xVVAaP5tRf30eCoVX5UJa5SbRglaeGG3kmxhCvvv5Dc',
   //   range: 'Data',
@@ -145,8 +141,6 @@ exports.addDataToSheet = asyncHandler(async (req, res, next) => {
   // const responseData = await sheets.spreadsheets.values.append(
   //   requestParams
   // );
-
   // console.log("sheet updated");
   // res.status(200).json({ success: true, data: responseData.status });
-
 });

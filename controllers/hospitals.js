@@ -27,25 +27,25 @@ exports.getHospitals = asyncHandler(async (req, res, next) => {
 
 //@desc     Get unapproved Hospitals
 //@route    GET /api/v1/hospitals/unapproved
-//@access   Public
+//@access   Private(admin)
 exports.getUnapprovedHospitals = asyncHandler(async (req, res, next) => {
-  let hospital = await Hospital.find({ isApproved: false });
-  res.status(200).json({ success: true, data: hospital });
+  let hospitals = await Hospital.find({ isApproved: false });
+  res.status(200).json({ success: true, data: hospitals });
 });
 
 //@desc     Get approved Hospitals
 //@route    GET /api/v1/hospitals/approved
 //@access . Public
 exports.getApprovedHospitals = asyncHandler(async (req, res, next) => {
-  let hospital = await Hospital.find({ isApproved: true });
-  res.status(200).json({ success: true, data: hospital });
+  let hospitals = await Hospital.find({ isApproved: true });
+  res.status(200).json({ success: true, data: hospitals });
 });
 
 //@desc     Get Hospital for owner
 //@route    GET /api/v1/hospitals/user
 //@access . Private
 exports.getHospitalForUser = asyncHandler(async (req, res, next) => {
-  const hospital = await Hospital.find({ user: req.user.id });
+  const hospital = await Hospital.find({ user: req.user._id });
   res.status(200).json({ success: true, data: hospital });
 });
 
@@ -55,7 +55,7 @@ exports.getHospitalForUser = asyncHandler(async (req, res, next) => {
 
 exports.createHospital = asyncHandler(async (req, res, next) => {
   // Add the logged in user to the body
-  req.body.user = req.user.id;
+  req.body.user = req.user._id;
 
   // Check if the owner has a hospital already
   const existingHospital = await Hospital.findOne({ user: req.user.id });
@@ -63,7 +63,7 @@ exports.createHospital = asyncHandler(async (req, res, next) => {
   if (existingHospital) {
     return next(
       new ErrorResponse(
-        `The user with ID ${req.user.id} has a hospital already`,
+        `The user with ID ${req.user.id} has a hospital already!`,
         400
       )
     );

@@ -27,7 +27,11 @@ router
   .post(protect, authorize('owner'), createHospital);
 
 router.route('/approved').get(getApprovedHospitals);
-router.route('/unapproved').get(getUnapprovedHospitals);
+
+router
+  .route('/unapproved')
+  .get(protect, authorize('admin'), getUnapprovedHospitals);
+
 router.route('/user').get(protect, getHospitalForUser);
 
 router

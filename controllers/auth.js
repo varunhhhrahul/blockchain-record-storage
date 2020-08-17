@@ -77,7 +77,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/auth/me
 // @access    Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
 
   res.status(200).json({
     success: true,
@@ -94,7 +94,7 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
     email: req.body.email,
   };
 
-  const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+  const user = await User.findByIdAndUpdate(req.user._id, fieldsToUpdate, {
     new: true,
     runValidators: true,
   });
@@ -138,11 +138,12 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // Create reset url
-  const resetUrl = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/auth/resetpassword/${resetToken}`;
+  // const resetUrl = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/auth/resetpassword/${resetToken}`;
+  const resetUrl = `http://localhost:3000/auth/resetpassword/${resetToken}`;
 
-  const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+  const message = `You are receiving this email because you (or someone else) has requested the reset of the password. Please visit the URL below: \n\n ${resetUrl}`;
 
   try {
     await sendEmail({

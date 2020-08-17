@@ -43,9 +43,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Dev logging middleware
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+// if (process.env.NODE_ENV === 'development') {
+app.use(morgan('dev'));
+// }
 // app.use(function (req, res, next) {
 //   console.log('Requested path: %s', req.path);
 //   next();
@@ -113,6 +113,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/users', userFrontend);
 // app.use('/hospitals', hospitalFrontend);
 // app.use('/admin', adminFrontend);
+
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/hospitals', hopsitals);
 app.use('/api/v1/pdrequests', pdRequests);
