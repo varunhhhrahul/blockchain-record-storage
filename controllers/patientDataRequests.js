@@ -50,7 +50,7 @@ exports.getPatientDataRequest = asyncHandler(async (req, res, next) => {
 
 exports.addPatientDataRequest = asyncHandler(async (req, res, next) => {
   req.body.hospital = req.params.hospitalId;
-  req.body.user = req.user.id;
+  req.body.user = req.user._id;
   const hospital = await Hospital.findById(req.params.hospitalId);
   if (!hospital) {
     return next(
